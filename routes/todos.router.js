@@ -27,9 +27,8 @@ router.get("/todos", async (req, res) => {
 
 router.patch("/todos/:todoId", async (req, res) => {
   const { todoId } = req.params;
-  const { order } = req.body;
-  // 1. todoId 에 해당하는 할 일이 있는가?
-  // 1-1. todoId 에 해당하는 일이 없으면, Error Message 출력
+  const { order, value, done } = req.body;
+
   const currentToDo = await Todo.findById(todoId);
   if (!currentToDo) {
     return res.status(400).json({ err: "Nothing To Do" });
@@ -42,7 +41,12 @@ router.patch("/todos/:todoId", async (req, res) => {
       await targetTodo.save();
     } // 순서 변경된 값 또한 변경해줘야 할 것.
     currentToDo.order = order;
+  } else if (value) {
+    currentToDo.value = value;
+  } else if (done !== undefined) {
+    currentToDo.doneAt = done ? new Date() : null;
   }
+
   await currentToDo.save();
   res.send({});
 });
