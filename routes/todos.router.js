@@ -1,4 +1,5 @@
 const express = require("express");
+const { default: mongoose } = require("mongoose");
 const { findById } = require("../models/todo");
 const router = express.Router();
 const Todo = require("../models/todo");
@@ -46,33 +47,10 @@ router.patch("/todos/:todoId", async (req, res) => {
   res.send({});
 });
 
-// router.get("/todos", async (req, res) => {
-//     const todos = await Todo.find().sort("-order").exec();
-
-//     res.send({ todos });
-//   });
-
-// router.patch("/todos/:todoId", async (req, res) => {
-//     const { todoId } = req.params;
-//     const { order } = req.body;
-
-//     const currentTodo = await Todo.findById(todoId);
-//     if (!currentTodo) {
-//       throw new Error("존재하지 않는 todo 데이터입니다.");
-//     }
-
-//     if (order) {
-//       const targetTodo = await Todo.findOne({ order }).exec();
-//       if (targetTodo) {
-//         targetTodo.order = currentTodo.order;
-//         await targetTodo.save();
-//       }
-//       currentTodo.order = order;
-//     }
-
-//     await currentTodo.save();
-
-//     res.send({});
-//   });
+router.delete("/todos/:todoId", async (req, res) => {
+  const { todoId } = req.params;
+  const todo = await Todo.findByIdAndDelete({ _id: todoId });
+  res.send({ todo });
+});
 
 module.exports = router;
