@@ -1,4 +1,6 @@
 const mongoose = require("mongoose");
+mongoose.set("strictQuery", false);
+mongoose.set("debug", true);
 
 mongoose
   .connect(
