@@ -1,6 +1,6 @@
 # ToDo_Memo_Prac_HangH
 
-# To Do Memo site, 
+# To Do Memo , 
 
 # practicing node.js , express, mongoose, cookie, session, JWT(JSON Web Token) ... 
 
