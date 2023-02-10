@@ -1,5 +1,6 @@
 const express = require("express");
 
+const db = require("./models/index");
 const todosRouter = require("./routes/todos.router.js");
 
 const app = express();
